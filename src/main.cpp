@@ -1,3 +1,4 @@
+#include <iostream>
 #include "theikos/display.h"
 
 using namespace theikos;
@@ -7,6 +8,8 @@ int main() {
 
     auto display = Display::create("Theikos", 640, 480);
     if (display != nullptr) {
+        display->setTitle("Theikos - Modified");
+        std::cout << display << std::endl;
         while (display->isAlive()) {
             display->tick();
         }

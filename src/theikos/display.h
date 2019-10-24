@@ -2,9 +2,9 @@
 #define THEIKOS_SRC_THEIKOS_DISPLAY_H_
 
 #include <string>
-#include <utility>
 #include <GL/glew.h>
 #include <GLFW/glfw3.h>
+#include <ostream>
 
 namespace theikos {
     class Display {
@@ -13,7 +13,6 @@ namespace theikos {
         int width{}, height{};
         GLFWwindow *window = nullptr;
 
-    public:
         Display() = default;
 
     public:
@@ -50,7 +49,19 @@ namespace theikos {
             glfwDestroyWindow(window);
             glfwTerminate();
         }
+
+        void setTitle(const std::string &t) {
+            this->title = t;
+            glfwSetWindowTitle(window, t.c_str());
+        }
+
+        friend std::ostream &operator<<(std::ostream &os, const Display *display);
     };
+
+    std::ostream &operator<<(std::ostream &os, const Display *display) {
+        os << "title: \"" << display->title << "\", width: " << display->width << ", height: " << display->height;
+        return os;
+    }
 }
 
 #endif //THEIKOS_SRC_THEIKOS_DISPLAY_H_
