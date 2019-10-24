@@ -11,13 +11,13 @@ namespace theikos {
     private:
         std::string title;
         int width{}, height{};
-        GLFWwindow* window = nullptr;
+        GLFWwindow *window = nullptr;
 
     public:
         Display() = default;
 
     public:
-        static Display* create(const std::string& title, int width, int height) {
+        static Display *create(const std::string &title, int width, int height) {
             auto display = new Display();
             display->title = title;
             display->width = width;
