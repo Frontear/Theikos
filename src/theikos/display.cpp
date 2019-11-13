@@ -12,11 +12,18 @@ theikos::Display::Display(std::string window_title, int window_width, int window
     }
     else {
         if (glfwInit() == GLFW_TRUE) {
+            glfwWindowHint(GLFW_CONTEXT_VERSION_MINOR, 3);
+            glfwWindowHint(GLFW_CONTEXT_VERSION_MAJOR, 3);
+#if __APPLE__ // https://gcc.gnu.org/onlinedocs/cpp/Predefined-Macros.html
+            glfwWindowHint(GLFW_OPENGL_FORWARD_COMPAT, GL_TRUE); // todo: is this necessary?
+#endif
+            glfwWindowHint(GLFW_OPENGL_PROFILE, GLFW_OPENGL_CORE_PROFILE);
+
             ptr = glfwCreateWindow(width, height, title.c_str(), nullptr, nullptr);
             if (ptr != nullptr) {
                 glfwMakeContextCurrent(ptr);
 
-                //glewExperimental = GL_TRUE;
+                glewExperimental = GL_TRUE;
                 if (glewInit() == GLEW_OK) {
                     glfwSwapInterval(1);
 
