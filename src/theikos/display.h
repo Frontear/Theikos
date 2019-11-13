@@ -11,7 +11,7 @@ namespace theikos {
     private:
         std::string title;
         int width, height;
-        GLFWwindow* ptr;
+        GLFWwindow *ptr;
 
         static bool setup;
 

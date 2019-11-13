@@ -7,7 +7,10 @@ bool theikos::Display::setup = false;
 
 theikos::Display::Display(std::string window_title, int window_width, int window_height)
     : title(std::move(window_title)), width(window_width), height(window_height) {
-    if (!setup) {
+    if (setup) {
+        throw std::runtime_error("Attempting to create a second theikos::Display when one already exists");
+    }
+    else {
         if (glfwInit() == GLFW_TRUE) {
             ptr = glfwCreateWindow(width, height, title.c_str(), nullptr, nullptr);
             if (ptr != nullptr) {
@@ -21,22 +24,22 @@ theikos::Display::Display(std::string window_title, int window_width, int window
                 }
             }
         }
-    }
 
-    if (!setup) {
-        throw std::runtime_error("Attempting to create a second theikos::Display when one already exists");
+        if (!setup) {
+            throw std::runtime_error("Failed to create theikos::Display, could not meet required OpenGL setup");
+        }
     }
 }
 
 theikos::Display::~Display() {
-    if (setup) {
+    if (!setup) {
+        throw std::logic_error("Attempting to destruct a theikos::Display when setup = false, this should never happen");
+    }
+    else {
         glfwDestroyWindow(ptr);
         glfwTerminate();
 
         setup = false;
-    }
-    else {
-        throw std::logic_error("Attempting to destruct a theikos::Display when setup = false, this should never happen");
     }
 }
 
