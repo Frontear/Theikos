@@ -2,7 +2,6 @@
 #define THEIKOS_SRC_THEIKOS_DISPLAY_H_
 
 #include <string>
-#include <utility>
 #include <GL/glew.h>
 #include <GLFW/glfw3.h>
 #include <ostream>
@@ -10,28 +9,29 @@
 namespace theikos {
     class Display {
     private:
-        std::string title = "";
-        int width = 0, height = 0;
-        GLFWwindow *window_ptr = nullptr;
+        std::string title;
+        int width, height;
+        GLFWwindow* ptr;
 
-        Display(std::string title, int width, int height);
-        ~Display();
+        static bool setup;
 
     public:
-        static Display *create(const std::string &title, int width, int height);
-        static void close(const Display *display);
+        Display(std::string window_title, int window_width, int window_height);
+        virtual ~Display();
 
         bool isAlive();
         void tick();
 
-        const std::string &getTitle();
-        void setTitle(const std::string &title);
-        int getWidth();
-        void setWidth(int width);
-        int getHeight();
-        void setHeight(int height);
+        std::string getTitle();
+        void setTitle(std::string new_title);
 
-        friend std::ostream &operator<<(std::ostream &os, const Display *display);
+        int getWidth();
+        void setWidth(int new_width);
+
+        int getHeight();
+        void setHeight(int new_height);
+
+        friend std::ostream &operator<<(std::ostream &os, const Display &display);
     };
 }
 
