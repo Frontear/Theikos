@@ -2,10 +2,11 @@
 #include "theikos/display.h"
 #include "theikos/shader.h"
 #include "theikos/program.h"
+#include "theikos/buffer.h"
 
 int main() {
     auto display = theikos::Display("Theikos", 640, 480);
-    std::cout << display;
+    std::cout << display << std::endl;
 
     // -- RETAINED MODE
     GLuint array;
@@ -18,10 +19,7 @@ int main() {
         0.0f, 0.5f, 0.0f
     };
 
-    GLuint buffer;
-    glGenBuffers(1, &buffer);
-    glBindBuffer(GL_ARRAY_BUFFER, buffer);
-    glBufferData(GL_ARRAY_BUFFER, sizeof(vert), vert, GL_STATIC_DRAW);
+    auto buffer = theikos::Buffer(GL_ARRAY_BUFFER, sizeof(vert), vert, GL_STATIC_DRAW);
 
     const char *v_shader =
         R"glsl(
@@ -63,7 +61,7 @@ int main() {
         program.use();
 
         glEnableVertexAttribArray(0);
-        glBindBuffer(GL_ARRAY_BUFFER, buffer);
+        buffer.bind();
         glVertexAttribPointer(0, 3, GL_FLOAT, GL_FALSE, 0, nullptr);
 
         glDrawArrays(GL_TRIANGLES, 0, 3);

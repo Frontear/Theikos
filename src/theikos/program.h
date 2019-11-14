@@ -14,6 +14,7 @@ namespace theikos {
 
     public:
         Program();
+        virtual ~Program();
 
         void link();
         void use(); // todo: fail if link hasn't been called at least once

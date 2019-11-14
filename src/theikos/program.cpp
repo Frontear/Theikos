@@ -5,6 +5,22 @@ theikos::Program::Program() : setup(false) {
     program = glCreateProgram();
 }
 
+theikos::Program::~Program() {
+    glDeleteProgram(program);
+
+    GLint deleted;
+    glGetProgramiv(program, GL_DELETE_STATUS, &deleted);
+    if (deleted != GL_TRUE){
+        GLchar error[1024];
+        glGetProgramInfoLog(program, 1024, nullptr, error);
+
+        std::stringstream message;
+        message << "Failed to delete program: " << "\n\t" << error;
+
+        throw std::runtime_error(message.str());
+    }
+}
+
 void theikos::Program::link() {
     if (setup) {
         throw std::runtime_error("Cannot link theikos::Program more than once");
