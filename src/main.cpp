@@ -6,7 +6,7 @@
 
 int main() {
     auto display = theikos::Display("Theikos", 640, 480);
-    std::cout << display << std::endl;
+    std::cout << "OpenGL version string: " << glGetString(GL_VERSION) << std::endl << display << std::endl;
 
     // -- RETAINED MODE
     GLuint array;

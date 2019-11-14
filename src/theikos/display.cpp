@@ -18,7 +18,7 @@ theikos::Display::Display(std::string window_title, int width, int height) : tit
 
     if (glfwInit() == GLFW_TRUE) {
         glfwWindowHint(GLFW_CONTEXT_VERSION_MINOR, 3);
-        glfwWindowHint(GLFW_CONTEXT_VERSION_MAJOR, 3);
+        glfwWindowHint(GLFW_CONTEXT_VERSION_MAJOR, 4);
 #if __APPLE__ // https://gcc.gnu.org/onlinedocs/cpp/Predefined-Macros.html
         glfwWindowHint(GLFW_OPENGL_FORWARD_COMPAT, GL_TRUE); // todo: is this necessary?
 #endif
