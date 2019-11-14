@@ -21,8 +21,11 @@ void theikos::Program::link() {
     }
 
     for (auto shader : shaders) {
-        glDetachShader(program, shader);
-        glDeleteShader(shader);
+        /*
+         * even though glGetProgramInfoLog will catch any errors with invalid shader ids,
+         * it won't always give a reason, especially if a random number is given
+         */
+        glDetachShader(program, shader); // todo: better error handling for this
     }
 
     shaders.clear();

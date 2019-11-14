@@ -19,6 +19,13 @@ theikos::Display::Display(std::string window_title, int window_width, int window
 #endif
             glfwWindowHint(GLFW_OPENGL_PROFILE, GLFW_OPENGL_CORE_PROFILE);
 
+            if (width <= 0 || height <= 0) {
+                throw std::runtime_error("Display dimensions must be greater than 0");
+            }
+            else if (title.empty()) {
+                throw std::runtime_error("Display title must not be empty");
+            }
+
             ptr = glfwCreateWindow(width, height, title.c_str(), nullptr, nullptr);
             if (ptr != nullptr) {
                 glfwMakeContextCurrent(ptr);
@@ -64,6 +71,10 @@ std::string theikos::Display::getTitle() {
 }
 
 void theikos::Display::setTitle(std::string new_title) {
+    if (new_title.empty()) {
+        throw std::runtime_error("Display title must not be empty");
+    }
+
     title = std::move(new_title);
     glfwSetWindowTitle(ptr, title.c_str());
 }
@@ -73,6 +84,10 @@ int theikos::Display::getWidth() {
 }
 
 void theikos::Display::setWidth(int new_width) {
+    if (new_width <= 0) {
+        throw std::runtime_error("Display width must be greater than 0");
+    }
+
     width = new_width;
     glfwSetWindowSize(ptr, width, height);
 }
@@ -82,6 +97,10 @@ int theikos::Display::getHeight() {
 }
 
 void theikos::Display::setHeight(int new_height) {
+    if (new_height <= 0) {
+        throw std::runtime_error("Display height must be greater than 0");
+    }
+
     height = new_height;
     glfwSetWindowSize(ptr, width, height);
 }

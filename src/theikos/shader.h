@@ -10,7 +10,8 @@ namespace theikos {
         GLuint shader;
 
     public:
-        Shader(const char *source, GLenum type);
+        Shader(const char *source, GLenum type); // todo: prevent passing in invalid type
+        virtual ~Shader(); // todo: prevent from being called before it's detached from the program
 
         friend theikos::Program &operator<<(theikos::Program &program, const theikos::Shader &shader);
     };

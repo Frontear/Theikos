@@ -2,6 +2,10 @@
 #include "shader.h"
 
 theikos::Shader::Shader(const char *source, GLenum type) {
+    if (source == nullptr) {
+        throw std::runtime_error("Shader source cannot be null");
+    }
+
     shader = glCreateShader(type);
     glShaderSource(shader, 1, &source, nullptr);
     glCompileShader(shader);
@@ -23,4 +27,8 @@ theikos::Program &theikos::operator<<(theikos::Program &program, const theikos::
     program << shader.shader;
 
     return program;
+}
+
+theikos::Shader::~Shader() {
+    glDeleteShader(shader);
 }

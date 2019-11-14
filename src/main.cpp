@@ -52,8 +52,8 @@ int main() {
         auto s_fragment = theikos::Shader(f_shader, GL_FRAGMENT_SHADER);
 
         program << s_vertex << s_fragment;
+        program.link();
     }
-    program.link();
     // -- RETAINED MODE
 
     do {

@@ -15,7 +15,7 @@ namespace theikos {
         Program();
 
         void link();
-        void use();
+        void use(); // todo: fail if link hasn't been called at least once
 
         friend theikos::Program &operator<<(theikos::Program &program,
                                             GLuint shader); // todo: prevent this from allowing any random number
