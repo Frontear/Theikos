@@ -1,11 +1,15 @@
 #include <sstream>
 #include "program.h"
 
-theikos::Program::Program() {
+theikos::Program::Program() : setup(false) {
     program = glCreateProgram();
 }
 
 void theikos::Program::link() {
+    if (setup) {
+        throw std::runtime_error("Cannot link theikos::Program more than once");
+    }
+
     glLinkProgram(program);
 
     GLint linked;
@@ -29,9 +33,15 @@ void theikos::Program::link() {
     }
 
     shaders.clear();
+
+    setup = true;
 }
 
 void theikos::Program::use() {
+    if (!setup) {
+        throw std::runtime_error("Cannot use a theikos::Program that has not yet been linked");
+    }
+
     glUseProgram(program);
 }
 

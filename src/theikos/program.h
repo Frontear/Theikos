@@ -8,6 +8,7 @@
 namespace theikos {
     class Program {
     private:
+        bool setup;
         GLuint program;
         std::vector<GLuint> shaders;
 

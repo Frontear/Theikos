@@ -9,7 +9,6 @@ namespace theikos {
     class Display {
     private:
         std::string title;
-        int width, height;
         GLFWwindow *ptr;
 
         static bool setup;
@@ -24,10 +23,12 @@ namespace theikos {
         std::string getTitle();
         void setTitle(std::string new_title);
 
-        int getWidth();
+        [[nodiscard]]
+        int getWidth() const;
         void setWidth(int new_width);
 
-        int getHeight();
+        [[nodiscard]]
+        int getHeight() const;
         void setHeight(int new_height);
 
         friend std::ostream &operator<<(std::ostream &os, const Display &display);
