@@ -11,7 +11,8 @@ namespace theikos {
         GLuint type;
 
     public:
-        Buffer(GLenum buffer_type, size_t size, const GLfloat* vertices, GLenum draw_type); // todo: implicitly determine array size using size_t
+        // todo: implicitly determine array size using size_t
+        Buffer(GLenum buffer_type, size_t size, const GLfloat *vertices, GLenum draw_type);
         virtual ~Buffer();
 
         void bind();

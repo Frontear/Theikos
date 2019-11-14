@@ -10,7 +10,7 @@ theikos::Program::~Program() {
 
     GLint deleted;
     glGetProgramiv(program, GL_DELETE_STATUS, &deleted);
-    if (deleted != GL_TRUE){
+    if (deleted != GL_TRUE) {
         GLchar error[1024];
         glGetProgramInfoLog(program, 1024, nullptr, error);
 
@@ -62,6 +62,10 @@ void theikos::Program::use() {
 }
 
 theikos::Program &theikos::operator<<(theikos::Program &program, GLuint shader) {
+    if (glIsShader(shader) != GL_TRUE) {
+        throw std::runtime_error("Invalid shader specified for theikos::Program");
+    }
+
     program.shaders.push_back(shader);
     glAttachShader(program.program, shader);
 
