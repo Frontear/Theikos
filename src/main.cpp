@@ -1,5 +1,6 @@
 #include <iostream>
 #include "theikos/display.h"
+#include "theikos/shader.h"
 
 int main() {
     auto display = theikos::Display("Theikos", 640, 480);
@@ -44,25 +45,19 @@ int main() {
         }
         )glsl";
 
-    GLuint s_vertex = glCreateShader(GL_VERTEX_SHADER);
-    GLuint s_fragment = glCreateShader(GL_FRAGMENT_SHADER);
-
-    glShaderSource(s_vertex, 1, &v_shader, nullptr);
-    glCompileShader(s_vertex); // assumed success
-
-    glShaderSource(s_fragment, 1, &f_shader, nullptr);
-    glCompileShader(s_fragment); // assumed success
+    auto s_vertex = theikos::Shader(v_shader, GL_VERTEX_SHADER);
+    auto s_fragment = theikos::Shader(f_shader, GL_FRAGMENT_SHADER);
 
     GLuint program = glCreateProgram();
-    glAttachShader(program, s_vertex);
-    glAttachShader(program, s_fragment);
+    glAttachShader(program, s_vertex.shader);
+    glAttachShader(program, s_fragment.shader);
     glLinkProgram(program); // assumed success
 
-    glDetachShader(program, s_vertex);
-    glDetachShader(program, s_fragment);
+    glDetachShader(program, s_vertex.shader);
+    glDetachShader(program, s_fragment.shader);
 
-    glDeleteShader(s_vertex);
-    glDeleteShader(s_fragment);
+    glDeleteShader(s_vertex.shader);
+    glDeleteShader(s_fragment.shader);
     // -- RETAINED MODE
 
     do {
