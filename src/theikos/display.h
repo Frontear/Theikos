@@ -2,8 +2,7 @@
 #define THEIKOS_SRC_THEIKOS_DISPLAY_H_
 
 #include <string>
-#include <GL/glew.h>
-#include <GLFW/glfw3.h>
+#include "internal/opengl.h"
 #include <ostream>
 
 namespace theikos {
