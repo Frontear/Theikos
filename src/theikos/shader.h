@@ -5,11 +5,11 @@
 
 namespace theikos {
     class Shader {
-    public:
+    public: // todo: turn into private
         GLuint shader;
 
     public:
-        Shader(const char* source, GLenum type);
+        Shader(const char *source, GLenum type);
     };
 }
 
