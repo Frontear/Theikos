@@ -2,7 +2,6 @@
 #define THEIKOS_SRC_THEIKOS_PROGRAM_H_
 
 #include "internal/opengl.h"
-#include "shader.h"
 #include <vector>
 #include <ostream>
 
@@ -18,7 +17,8 @@ namespace theikos {
         void link();
         void use();
 
-        friend theikos::Program &operator<<(theikos::Program &program, const theikos::Shader &shader);
+        friend theikos::Program &operator<<(theikos::Program &program,
+                                            GLuint shader); // todo: prevent this from allowing any random number
     };
 }
 

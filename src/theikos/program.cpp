@@ -32,9 +32,9 @@ void theikos::Program::use() {
     glUseProgram(program);
 }
 
-theikos::Program &theikos::operator<<(theikos::Program &program, const theikos::Shader &shader) {
-    program.shaders.push_back(shader.shader);
-    glAttachShader(program.program, shader.shader);
+theikos::Program &theikos::operator<<(theikos::Program &program, GLuint shader) {
+    program.shaders.push_back(shader);
+    glAttachShader(program.program, shader);
 
     return program;
 }

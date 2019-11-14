@@ -18,3 +18,9 @@ theikos::Shader::Shader(const char *source, GLenum type) {
         throw std::runtime_error(message.str());
     }
 }
+
+theikos::Program &theikos::operator<<(theikos::Program &program, const theikos::Shader &shader) {
+    program << shader.shader;
+
+    return program;
+}
