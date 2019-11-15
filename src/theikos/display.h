@@ -14,7 +14,7 @@ namespace theikos {
         static bool setup;
 
     public:
-        Display(std::string window_title, int window_width, int window_height); // todo: reduce throw repetition
+        Display(std::string window_title, int window_width, int window_height);
         virtual ~Display();
 
         bool isAlive();

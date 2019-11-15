@@ -31,4 +31,8 @@ theikos::Program &theikos::operator<<(theikos::Program &program, const theikos::
 
 theikos::Shader::~Shader() {
     glDeleteShader(shader);
+
+    if (glIsShader(shader) == GL_TRUE) {
+        throw std::runtime_error("Failed to delete shader");
+    }
 }

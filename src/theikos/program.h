@@ -3,7 +3,6 @@
 
 #include "internal/opengl.h"
 #include <vector>
-#include <ostream>
 
 namespace theikos {
     class Program {

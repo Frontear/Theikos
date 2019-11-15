@@ -1,7 +1,6 @@
 #ifndef THEIKOS_SRC_THEIKOS_BUFFER_H_
 #define THEIKOS_SRC_THEIKOS_BUFFER_H_
 
-#include <initializer_list>
 #include "internal/opengl.h"
 
 namespace theikos {

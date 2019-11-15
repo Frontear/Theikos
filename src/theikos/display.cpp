@@ -1,7 +1,6 @@
 #include "display.h"
 
 #include <utility>
-#include <iostream>
 
 bool theikos::Display::setup = false;
 
@@ -16,31 +15,32 @@ theikos::Display::Display(std::string window_title, int width, int height) : tit
         throw std::runtime_error("Display title must not be empty");
     }
 
-    if (glfwInit() == GLFW_TRUE) {
-        glfwWindowHint(GLFW_CONTEXT_VERSION_MINOR, 3);
-        glfwWindowHint(GLFW_CONTEXT_VERSION_MAJOR, 4);
+    if (glfwInit() == GLFW_FALSE) {
+        throw std::runtime_error("Failed to initialize GLFW");
+    }
+
+    glfwWindowHint(GLFW_CONTEXT_VERSION_MINOR, 3);
+    glfwWindowHint(GLFW_CONTEXT_VERSION_MAJOR, 4);
 #if __APPLE__ // https://gcc.gnu.org/onlinedocs/cpp/Predefined-Macros.html
-        glfwWindowHint(GLFW_OPENGL_FORWARD_COMPAT, GL_TRUE); // todo: is this necessary?
+    glfwWindowHint(GLFW_OPENGL_FORWARD_COMPAT, GL_TRUE); // todo: is this necessary?
 #endif
-        glfwWindowHint(GLFW_OPENGL_PROFILE, GLFW_OPENGL_CORE_PROFILE);
+    glfwWindowHint(GLFW_OPENGL_PROFILE, GLFW_OPENGL_CORE_PROFILE);
 
-        ptr = glfwCreateWindow(width, height, title.c_str(), nullptr, nullptr);
-        if (ptr != nullptr) {
-            glfwMakeContextCurrent(ptr);
-
-            glewExperimental = GL_TRUE;
-            if (glewInit() == GLEW_OK) {
-                glfwSwapInterval(1);
-
-                setup = true;
-            }
-        }
+    ptr = glfwCreateWindow(width, height, title.c_str(), nullptr, nullptr);
+    if (ptr == nullptr) {
+        throw std::runtime_error("Failed to create GLFW window");
     }
 
-    if (!setup) {
-        throw std::runtime_error("Failed to create theikos::Display, could not meet required OpenGL setup");
+    glfwMakeContextCurrent(ptr);
+
+    glewExperimental = GL_TRUE;
+    if (glewInit() != GLEW_OK) {
+        throw std::runtime_error("Failed to initialize GLEW");
     }
 
+    glfwSwapInterval(1);
+
+    setup = true;
 }
 
 theikos::Display::~Display() {
@@ -107,6 +107,6 @@ void theikos::Display::setHeight(int new_height) {
 }
 
 std::ostream &theikos::operator<<(std::ostream &os, const theikos::Display &display) {
-    os << "title: " << display.title << " width: " << display.getWidth() << " height: " << display.getHeight();
+    os << "title: " << display.title << ", width: " << display.getWidth() << ", height: " << display.getHeight();
     return os;
 }
